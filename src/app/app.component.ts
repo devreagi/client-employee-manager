@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {Employee} from './models/employee';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +7,4 @@ import {Employee} from './models/employee';
 })
 export class AppComponent {
   title = 'client-employee-manager';
-  employees: Employee[] = [];
 }
