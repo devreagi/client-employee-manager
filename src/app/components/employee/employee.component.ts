@@ -79,6 +79,31 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
+  public searchEmployees(key: String): void {
+    let results: Employee[] = [];
+    let search = document.getElementById("searchName")!
+    for (const employee of this.employees) {
+      if (employee.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
+        || employee.email.toLowerCase().indexOf(key.toLowerCase()) !== -1
+        || employee.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1
+        || employee.jobTitle.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        results.push(employee);
+      }
+    }
+    if (results.length === 0 || !key) {
+      search.setAttribute("class", "form-control btn-danger mr-sm-2")
+      this.getEmployees()
+    }
+    if (results.length > 0) {
+      search.setAttribute("class", "form-control btn-success mr-sm-2")
+      this.employees = results;
+    }
+
+    if(key === ""){
+      search.setAttribute("class", "form-control mr-sm-2")
+    }
+  }
+
   public onOpenModal(employee: Employee | null, mode: string): void {
     const container = document.getElementById(
       'main-container');

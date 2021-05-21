@@ -1,24 +1,24 @@
-<!-- Notification for no employees -->
-<div *ngIf="employees?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
-  <div class="alert alert-info" role="alert">
-    <h4 class="alert-heading">NO EMPLOYEES!</h4>
-    <p>No Employees were found.</p>
-  </div>
-</div>
 <div class="container-fluid" id="main-container">
-  <nav class="navbar">
-    <form class="flex">
-      <button class="btn btn-outline-primary me-2" type="button" (click)="onOpenModal(null, 'add')">Add Employee
+  <div class="d-flex d-md-flex flex-row p-3 bd-highlight flex-wrap">
+    <div class="me-auto bd-highlight">
+      <button class="btn btn-primary me-2" type="button"
+              (click)="onOpenModal(null, 'add')">Add Employee
       </button>
+    </div>
+    <form class="bd-highlight">
+      <input type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2"
+             placeholder="Search employees..." required>
     </form>
-  </nav>
+  </div>
+
   <div class="row">
     <div *ngFor="let employee of employees" class="col-md-6 col-xl-3">
       <div class="card m-b-30">
         <div class="card-body row">
           <div class="col-6">
-            <a href=""><img src="{{employee?.imageUrl}}" alt=""
-                            class="img-fluid rounded-circle w-60"></a>
+            <img src="{{employee?.imageUrl}}" alt=""
+                 class="img-fluid rounded-circle w-60">
           </div>
           <div class="col-6 card-title align-self-center mb-0">
             <h5>{{employee.name}}</h5>
@@ -33,9 +33,11 @@
         </ul>
         <div class="card-body">
           <div class="float-right btn-group btn-group-sm">
-            <button (click)="onOpenModal(employee, 'edit')" class="btn btn-primary tooltips" data-placement="top"
+            <button (click)="onOpenModal(employee, 'edit')" class="btn btn-primary tooltips"
+                    data-placement="top"
                     data-original-title="Edit"><i class="fas fa-user-edit"></i></button>
-            <button (click)="onOpenModal(employee, 'delete')" class="btn btn-secondary tooltips" data-placement="top"
+            <button (click)="onOpenModal(employee, 'delete')" class="btn btn-secondary tooltips"
+                    data-placement="top"
                     data-original-title="Delete"><i class="far fa-trash-alt"></i></button>
           </div>
         </div>
@@ -45,7 +47,8 @@
 </div>
 
 <!-- Add Employee Modal -->
-<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog"
+     aria-labelledby="addEmployeeModalLabel"
      aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -58,30 +61,37 @@
         <form #addForm="ngForm" (ngSubmit)="onAddEmployee(addForm!)">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" ngModel name="name" class="form-control" id="nameAdd" placeholder="Name" required>
+            <input type="text" ngModel name="name" class="form-control" id="nameAdd"
+                   placeholder="Name" required>
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" ngModel name="email" class="form-control" id="emailAdd" placeholder="Email" required>
+            <input type="email" ngModel name="email" class="form-control" id="emailAdd"
+                   placeholder="Email" required>
           </div>
           <div class="form-group">
             <label for="phone">Job title</label>
-            <input type="text" ngModel name="jobTitle" class="form-control" id="jobTitleAdd" placeholder="Job title"
+            <input type="text" ngModel name="jobTitle" class="form-control" id="jobTitleAdd"
+                   placeholder="Job title"
                    required>
           </div>
           <div class="form-group">
             <label for="phone">Phone</label>
-            <input type="text" ngModel name="phone" class="form-control" id="phoneAdd" placeholder="Phone" required>
+            <input type="text" ngModel name="phone" class="form-control" id="phoneAdd"
+                   placeholder="Phone" required>
           </div>
           <div class="form-group">
             <label for="phone">Image URL</label>
-            <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrlAdd" placeholder="Image URL"
+            <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrlAdd"
+                   placeholder="Image URL"
                    required>
           </div>
           <div class="modal-footer">
-            <button type="button" id="add-employee-form" class="btn btn-secondary" data-bs-dismiss="modal">Close
+            <button type="button" id="add-employee-form" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close
             </button>
-            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes
+            </button>
           </div>
         </form>
       </div>
@@ -90,12 +100,14 @@
 </div>
 
 <!-- Edit Modal -->
-<div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
+<div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog"
+     aria-labelledby="employeeEditModalLabel"
      aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Employee {{editEmployee?.name}}</h5>
+        <h5 class="modal-title"
+            id="updateEmployeeModalLabel">Edit Employee {{editEmployee?.name}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
@@ -103,37 +115,44 @@
         <form #editForm="ngForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" ngModel="{{editEmployee?.name}}" name="name" class="form-control" id="name"
+            <input type="text" ngModel="{{editEmployee?.name}}" name="name" class="form-control"
+                   id="name"
                    aria-describedby="emailHelp" placeholder="Name">
           </div>
           <input type="hidden" ngModel="{{editEmployee?.id}}" name="id" class="form-control" id="id"
                  placeholder="Email">
-          <input type="hidden" ngModel="{{editEmployee?.employeeCode}}" name="userCode" class="form-control"
+          <input type="hidden" ngModel="{{editEmployee?.employeeCode}}" name="userCode"
+                 class="form-control"
                  id="userCode" placeholder="Email">
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" ngModel="{{editEmployee?.email}}" name="email" class="form-control" id="email"
+            <input type="email" ngModel="{{editEmployee?.email}}" name="email" class="form-control"
+                   id="email"
                    placeholder="Email">
           </div>
           <div class="form-group">
             <label for="phone">Job title</label>
-            <input type="text" ngModel="{{editEmployee?.jobTitle}}" name="jobTitle" class="form-control" id="jobTitle"
+            <input type="text" ngModel="{{editEmployee?.jobTitle}}" name="jobTitle"
+                   class="form-control" id="jobTitle"
                    placeholder="Job title">
           </div>
           <div class="form-group">
             <label for="phone">Phone</label>
-            <input type="text" ngModel="{{editEmployee?.phone}}" name="phone" class="form-control" id="phone"
+            <input type="text" ngModel="{{editEmployee?.phone}}" name="phone" class="form-control"
+                   id="phone"
                    placeholder="Phone">
           </div>
           <div class="form-group">
             <label for="phone">Image URL</label>
-            <input type="text" ngModel="{{editEmployee?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl"
+            <input type="text" ngModel="{{editEmployee?.imageUrl}}" name="imageUrl"
+                   class="form-control" id="imageUrl"
                    placeholder="Image URL">
           </div>
           <div class="modal-footer">
-            <button type="button" id="" data-bs-dismiss="modal" class="btn btn-secondary">Close</button>
-            <button (click)="onUpdateEmloyee(editForm.value)" data-bs-dismiss="modal" class="btn btn-primary">Save
-              changes
+            <button type="button" id="" data-bs-dismiss="modal" class="btn btn-secondary">Close
+            </button>
+            <button (click)="onUpdateEmloyee(editForm.value)" data-bs-dismiss="modal"
+                    class="btn btn-primary">Save changes
             </button>
           </div>
         </form>
@@ -143,7 +162,8 @@
 </div>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog"
+     aria-labelledby="deleteModelLabel"
      aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -153,13 +173,21 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete employee {{deleteEmployee?.name}} con ID {{deleteEmployee?.id}}?</p>
+        <p>Are you sure you want to delete employee {{deleteEmployee?.name}}?</p>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <button (click)="onDeleteEmployee(deleteEmployee?.id!)" class="btn btn-danger" data-bs-dismiss="modal">Yes
+          <button (click)="onDeleteEmployee(deleteEmployee?.id!)" class="btn btn-danger"
+                  data-bs-dismiss="modal">Yes
           </button>
         </div>
       </div>
     </div>
+  </div>
+</div>
+<!-- Notification for no employees -->
+<div *ngIf="employees?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">NO EMPLOYEES!</h4>
+    <p>No Employees were found.</p>
   </div>
 </div>
