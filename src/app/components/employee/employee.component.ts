@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Employee} from '../../models/employee';
 import {EmployeeService} from '../../services/employee.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-employee',
@@ -33,6 +34,23 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
+  public onAddEmployee(addForm: NgForm): void {
+    const element = document.getElementById('add-employee-form');
+    if (element !== null) {
+      element.click();
+    }
+    this.employeeService.addEmployee(addForm.value).subscribe({
+      next: (response: Employee) => {
+        console.log(response);
+        this.getEmployees();
+        addForm.resetForm();
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+      },
+    });
+  }
+
   public onUpdateEmloyee(employee: Employee): void {
     this.employeeService.updateEmployee(employee).subscribe({
       next: (response: Employee) => {
@@ -61,7 +79,7 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
-  public onOpenModal(employee: Employee, mode: string): void {
+  public onOpenModal(employee: Employee | null, mode: string): void {
     const container = document.getElementById(
       'main-container');
     const button = document.createElement('button');
@@ -71,16 +89,17 @@ export class EmployeeComponent implements OnInit {
     if (mode === 'add') {
       button.setAttribute('data-bs-target', '#addEmployeeModal');
     }
-    if (mode === 'edit') {
+    if (mode === 'edit' && employee !== null) {
       this.editEmployee = employee;
       button.setAttribute('data-bs-target', '#updateEmployeeModal');
     }
-    if (mode === 'delete') {
+    if (mode === 'delete' && employee !== null) {
       this.deleteEmployee = employee;
       button.setAttribute('data-bs-target', '#deleteEmployeeModal');
     }
-    // @ts-ignore
-    container.appendChild(button);
+    if (container !== null) {
+      container.appendChild(button);
+    }
     button.click();
   }
 
