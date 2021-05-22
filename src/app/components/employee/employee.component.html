@@ -61,30 +61,62 @@
         <form #addForm="ngForm" (ngSubmit)="onAddEmployee(addForm!)">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" ngModel name="name" class="form-control" id="nameAdd"
-                   placeholder="Name" required>
+            <input type="text" name="name"
+                   class="form-control" required minlength="3" id="nameAdd"
+                   placeholder="Name" [(ngModel)]="employeeAdd.name" #name="ngModel">
+            <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty||name.touched)">
+              <div *ngIf="name.errors?.required">
+                Name required
+              </div>
+              <div *ngIf="name.errors?.minlength">
+                Name must contain at least 3 characters.
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" ngModel name="email" class="form-control" id="emailAdd"
-                   placeholder="Email" required>
+            <input type="email" name="email" class="form-control" id="emailAdd"
+                   placeholder="Email" required ngModel #email="ngModel"
+                   email="true">
+            <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty||email.touched)">
+              <div *ngIf="name.errors?.email !== true">
+                Email required
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="phone">Job title</label>
             <input type="text" ngModel name="jobTitle" class="form-control" id="jobTitleAdd"
                    placeholder="Job title"
-                   required>
+                   required #jobTitle="ngModel">
+            <div class="alert alert-danger"
+                 *ngIf="jobTitle.invalid && (jobTitle.dirty||jobTitle.touched)">
+              <div *ngIf="jobTitle.errors?.required">
+                Job Title required
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="phone">Phone</label>
             <input type="text" ngModel name="phone" class="form-control" id="phoneAdd"
-                   placeholder="Phone" required>
+                   placeholder="Phone" required #phone="ngModel">
+            <div class="alert alert-danger" *ngIf="phone.invalid && (phone.dirty||phone.touched)">
+              <div *ngIf="phone.errors?.required">
+                Phone required
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="phone">Image URL</label>
-            <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrlAdd"
+            <input type="text" ngModel name="imageUrl" class="form-control"
+                   id="imageUrlAdd"
                    placeholder="Image URL"
-                   required>
+                   required  #imageUrl="ngModel">
+            <div class="alert alert-danger" *ngIf="imageUrl.invalid && (imageUrl.dirty||imageUrl.touched)">
+              <div *ngIf="imageUrl.errors?.required">
+                Image URL required
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" id="add-employee-form" class="btn btn-secondary"

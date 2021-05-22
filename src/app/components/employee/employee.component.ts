@@ -13,6 +13,7 @@ export class EmployeeComponent implements OnInit {
   public employees: Employee[] = [];
   public editEmployee!: Employee;
   public deleteEmployee!: Employee;
+  public employeeAdd: Employee = new Employee();
 
   constructor(private employeeService: EmployeeService) {
   }
@@ -99,7 +100,7 @@ export class EmployeeComponent implements OnInit {
       this.employees = results;
     }
 
-    if(key === ""){
+    if (key === "") {
       search.setAttribute("class", "form-control mr-sm-2")
     }
   }
