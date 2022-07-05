@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  dev-app:
+    container_name: employee-app-dev
+    image: employee-app-dev
+    build:
+      context: .
+      target: build-env
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 4200:4200
